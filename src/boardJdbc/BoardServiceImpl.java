@@ -1,23 +1,15 @@
 package boardJdbc;
 
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.CancellationException;
 
 public class BoardServiceImpl implements BoardService {
-
     static Scanner sc = new Scanner(System.in);
     List<Board> boardList = new ArrayList<>();
-
     static BoardDao dao = new BoardDao();
 
-
-    int count = 1;
-
+    static final UserServiceImpl userService = UserServiceImpl.getInstance();
 
     public void boardTable() {
         System.out.println();
@@ -55,13 +47,23 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("[게시물 읽기]");
         boardTable();
         System.out.printf("bno: ");
-        Integer bno = Integer.parseInt(sc.nextLine());
-        readOne(bno);
+        String bno = sc.nextLine().trim();
+        if (bno.isEmpty()) {
+            System.out.println("잘못된 입력 입니다.");
+            return;
+        }
+
+        readOne(Integer.parseInt(bno));
     }
 
     @Override
     public void readOne(int bno) {
         Board board = dao.readOne(bno);
+
+        if (board == null) {
+            System.out.println("존재하지 않는 글 입니다.");
+            return;
+        }
 
         System.out.println("--".repeat(30));
 
@@ -85,6 +87,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void update(int bno, Board existingPost) {
         int state = 0;
+
+        if (dao.checkUserBoard(bno, userService.getUserid()) == 0) {
+            System.out.println("본인의 게시글만 수정할 수 있습니다.");
+            return;
+        }
+
         System.out.println("[수정 내용 입력]");
 
         Board updateBoard = new Board();
@@ -123,13 +131,19 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void delete(int bno) {
+
         boardList.removeIf(row -> row.getBno() == bno);
+
+        if (dao.checkUserBoard(bno, userService.getUserid()) == 0) {
+            System.out.println("본인의 게시글만 삭제할 수 있습니다.");
+            return;
+        }
 
         while (true) {
             System.out.println("보조메뉴 : 1. Y | 2. N");
             System.out.print("메뉴입력 : ");
-            String result = sc.nextLine().toLowerCase();
-            if (result.equals("y")) {
+            String result = sc.nextLine();
+            if (result.equals("1")) {
                 dao.delete(bno);
                 System.out.printf("%d번 게시글이 삭제되었습니다\n", bno);
                 break;
@@ -140,8 +154,6 @@ public class BoardServiceImpl implements BoardService {
                 System.out.println("알맞은 양식으로 다시 입력해주세요");
             }
         }
-
-
     }
 
     @Override
@@ -151,8 +163,8 @@ public class BoardServiceImpl implements BoardService {
         while (true) {
             System.out.println("보조메뉴 : 1. Y | 2. N");
             System.out.print("메뉴입력 : ");
-            String result = sc.nextLine().toLowerCase();
-            if (result.equals("y")) {
+            String result = sc.nextLine();
+            if (result.equals("1")) {
                 dao.clear();
                 boardList.clear();
                 System.out.println("전체 게시글이 삭제되었습니다\n");
@@ -172,9 +184,4 @@ public class BoardServiceImpl implements BoardService {
         System.exit(0);
     }
 
-    public String getTodayDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String todayDate = dateFormat.format(new Date());
-        return todayDate;
-    }
 }

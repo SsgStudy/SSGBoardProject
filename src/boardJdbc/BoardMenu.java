@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class BoardMenu {
     Scanner sc = new Scanner(System.in);
-    BoardServiceImpl boardService = new BoardServiceImpl();
-    static UserServiceImpl userService = new UserServiceImpl();
+    static final UserServiceImpl userService = UserServiceImpl.getInstance();
+    private BoardServiceImpl boardService = new BoardServiceImpl();
 
     public void runProgram() throws Exception {
         startMenu();
@@ -16,25 +16,19 @@ public class BoardMenu {
         System.out.println("메뉴: 1.회원 가입 | 2.로그인");
         System.out.print("메뉴 선택: ");
 
-        int cmd = Integer.parseInt(sc.nextLine());
+        String cmd = sc.nextLine().trim();
         switch (cmd) {
-            case 1-> {
+            case "1"-> {
                 signin();
-                mainMenu();
+                login();
             }
-            case 2 -> {
-                while (true) {
-                    int state = login();
-                    if (state == 1) {
-                        System.out.println("[로그인 성공]");
-                        mainMenu();
-                    } else {
-                        System.out.println("존재하지 않는 회원입니다. 다시 로그인 하세요.\n");
-                    }
-                }
+            case "2" -> {
+                login();
             }
-            default ->
+            default -> {
+                System.out.println("잘못된 입력 입니다.");
                 startMenu();
+            }
         }
     }
 
@@ -44,22 +38,28 @@ public class BoardMenu {
         System.out.println("메인 메뉴: 1.Create | 2.Read | 3.Clear | 4.Exit | 5. UnRegister");
         System.out.print("메뉴 선택: ");
         try {
-            int cmd = Integer.parseInt(sc.nextLine());
+            String cmd = sc.nextLine().trim();
+
             switch (cmd) {
-                case 1:
+                case "1" -> {
+                    System.out.println("현재 유저아이디 : " + userService.getUserid());
                     boardService.create(userService.getUserid());
                     mainMenu();
-                case 2:
+                }
+                case "2" -> {
                     boardService.read();
                     mainMenu();
-                case 3:
+                }
+                case "3" -> {
                     boardService.clear();
                     mainMenu();
-                case 4:
-                    boardService.exit();
-                case 5:
-                    unRegister();
-
+                }
+                case "4" -> boardService.exit();
+                case "5" -> unRegister();
+                default -> {
+                    System.out.println("잘못된 입력 입니다.");
+                    mainMenu();
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -70,29 +70,78 @@ public class BoardMenu {
     public void signin() throws Exception {
         User user = new User();
         System.out.println("[회원 가입]");
-        System.out.print("아이디: ");
-        user.setUserid(sc.nextLine());
-        System.out.print("비밀번호: ");
-        user.setUserpassword(sc.nextLine());
-        System.out.print("이름: ");
-        user.setUsername(sc.nextLine());
-        System.out.print("생년월일(yymmdd): ");
-        user.setUserbirth(sc.nextLine());
-        System.out.print("휴대폰 번호: ");
-        user.setUserPhoneNumber(sc.nextLine());
+        String userid;
+        do {
+            System.out.print("아이디를 입력하세요: ");
+            userid = sc.nextLine().trim();
+            if (userid.isEmpty()) {
+                System.out.println("아이디는 공백일 수 없습니다. 다시 입력해주세요.");
+            }
+        } while (userid.isEmpty());
+        user.setUserid(userid);
+
+        String password;
+        do {
+            System.out.print("비밀번호를 입력하세요: ");
+            password = sc.nextLine().trim();
+            if (password.isEmpty()) {
+                System.out.println("비밀번호는 공백일 수 없습니다. 다시 입력해주세요.");
+            }
+        } while (password.isEmpty());
+        user.setUserpassword(password);
+
+        String username;
+        do {
+            System.out.print("이름을 입력하세요: ");
+            username = sc.nextLine().trim();
+            if (username.isEmpty()) {
+                System.out.println("이름은 공백일 수 없습니다. 다시 입력해주세요.");
+            }
+        } while (username.isEmpty());
+        user.setUsername(username);
+
+        String userbirth;
+        do {
+            System.out.print("생년월일(예: 900101)을 입력하세요: ");
+            userbirth = sc.nextLine().trim();
+            if (!userbirth.matches("\\d{6}")) {
+                System.out.println("생년월일은 숫자 6자리여야 합니다. 다시 입력해주세요.");
+            }
+        } while (!userbirth.matches("\\d{6}"));
+        user.setUserbirth(userbirth);
+
+        String phoneNumber;
+        do {
+            System.out.print("전화번호를 입력하세요: ");
+            phoneNumber = sc.nextLine().trim();
+            if (!phoneNumber.matches("\\d+")) {
+                System.out.println("전화번호는 숫자만 포함해야 합니다. 다시 입력해주세요.");
+            }
+        } while (!phoneNumber.matches("\\d+"));
+        user.setUserPhoneNumber(phoneNumber);
+
         System.out.println();
 
         userService.registerUser(user);
     }
 
-    public int login() {
+    public void login() {
         System.out.println("[로그인]");
         System.out.print("아이디 입력: ");
         String userid = sc.nextLine();
         System.out.print("비밀번호 입력: ");
         String password = sc.nextLine();
         System.out.println();
-        return userService.login(userid, password);
+
+        while (true) {
+            int state = userService.login(userid, password);
+            if (state == 1) {
+                System.out.println("[로그인 성공]");
+                mainMenu();
+            } else {
+                System.out.println("존재하지 않는 회원입니다. 다시 로그인 하세요.\n");
+            }
+        }
     }
 
     public void unRegister() throws Exception {
