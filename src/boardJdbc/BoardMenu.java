@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class BoardMenu {
 
     Scanner sc = new Scanner(System.in);
-    BoardDao boardDao = new BoardDao();
+    BoardServiceImpl boardService = new BoardServiceImpl();
 
     public void runProgram() {
-        boardDao.boardTable();
+        boardService.boardTable();
         mainMenu();
     }
 
@@ -20,21 +20,21 @@ public class BoardMenu {
             int cmd = Integer.parseInt(sc.nextLine());
             switch (cmd) {
                 case 1:
-                    boardDao.create();
+                    boardService.create();
                     mainMenu();
                 case 2:
-                    boardDao.read();
+                    boardService.read();
                     mainMenu();
                 case 3:
-                    boardDao.clear();
+                    boardService.clear();
                     mainMenu();
                 case 4:
-                    boardDao.exit();
+                    boardService.exit();
 
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            boardDao.exit();
+            boardService.exit();
         }
     }
 }
