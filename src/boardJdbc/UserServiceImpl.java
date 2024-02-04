@@ -7,10 +7,24 @@ import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService{
 
+    private static UserServiceImpl instance;
     private String userid;
+
+    private UserServiceImpl() {}
+
+    public static UserServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new UserServiceImpl();
+        }
+        return instance;
+    }
 
     public String getUserid() {
         return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     @Override
