@@ -16,7 +16,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< Updated upstream
     <orderEntry type="module-library" scope="PROVIDED">
       <library>
         <CLASSES>
@@ -30,12 +29,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar!/" />
-=======
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar!/" />
->>>>>>> Stashed changes
         </CLASSES>
         <JAVADOC />
         <SOURCES />
