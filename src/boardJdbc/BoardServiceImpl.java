@@ -29,8 +29,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void create() {
+    public void create() throws SQLException, ClassNotFoundException {
         Board board = new Board();
+        BoardDao boardDao = new BoardDao();
         System.out.println();
         System.out.println("[새 게시물 입력]");
         System.out.print("제목: ");
@@ -41,6 +42,7 @@ public class BoardServiceImpl implements BoardService {
         board.setBwriter(sc.nextLine());
         board.setBno(count++);
         boardList.add(board);
+        boardDao.create(board);
     }
 
     @Override
@@ -112,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void clear() {
-        System.out.println("[게시물 전체 삭제");
+        System.out.println("[게시물 전체 삭제]");
         boardList.clear();
     }
 
