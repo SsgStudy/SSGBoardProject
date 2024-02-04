@@ -13,7 +13,7 @@ public class DBConnection {
         if (conn == null)
         {
             String url = "jdbc:mysql://27.96.130.40";
-            String user = "yeobin";
+            String user = "";
             String pw = "pw";
             Class.forName("com.mysql.cj.jdbc.Driver");
 
