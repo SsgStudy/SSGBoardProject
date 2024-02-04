@@ -140,6 +140,7 @@ public class BoardMenu {
                 mainMenu();
             } else {
                 System.out.println("존재하지 않는 회원입니다. 다시 로그인 하세요.\n");
+                login();
             }
         }
     }
