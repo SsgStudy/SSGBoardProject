@@ -1,7 +1,7 @@
 package boardJdbc;
 
 public interface BoardService {
-    void create();
+    void create(String userId);
     void read();
     void readOne(int bno);
     void update(int bno, Board existingPost);
