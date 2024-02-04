@@ -2,8 +2,6 @@ package boardJdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +9,6 @@ import java.util.List;
 
 
 public class BoardDao {
-
-
     static Connection conn;
 
     public BoardDao() {
@@ -63,14 +59,11 @@ public class BoardDao {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return boards;
-
     }
 
 
-    public Board readOne(Integer bno) {
-
+    public Board readOne(int bno) {
         Board board = new Board();
         try{
             String sql = new StringBuilder().append("SELECT * FROM boards WHERE bno=?").toString();
@@ -84,12 +77,35 @@ public class BoardDao {
                 board.setBcontent(rs.getString("bcontent"));
                 board.setBwriter(rs.getString("bwriter"));
                 board.setDate(rs.getDate("bdate"));
+            } else {
+                return null;
             }
         }catch(SQLException s){
             s.printStackTrace();
         }
 
         return board;
+    }
+
+    public int checkUserBoard(int bno, String userid) {
+        int state = 0;
+
+        try{
+            String sql = new StringBuilder().append("SELECT * FROM boards WHERE bno=? and bwriter=?").toString();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,bno);
+            System.out.println("글쓴이 누구야 " + userid);
+            pstmt.setString(2, userid);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                state = 1;
+            }
+        } catch(SQLException s){
+            s.printStackTrace();
+        }
+
+        return state;
     }
 
     public int update(int bno, Board board) {
