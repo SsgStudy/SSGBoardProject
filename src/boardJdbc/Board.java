@@ -1,7 +1,7 @@
 package boardJdbc;
 
-
 import lombok.Data;
+import java.sql.Date;
 
 @Data
 public class Board {
@@ -9,7 +9,7 @@ public class Board {
     private String btitle;
     private String bcontent;
     private String bwriter;
-    private String date;
+    private Date date;
 
     public int getBno() {
         return bno;
@@ -43,11 +43,11 @@ public class Board {
         this.bwriter = bwriter;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -62,7 +62,7 @@ public class Board {
                 '}';
     }
 
-    public Board(int bno, String btitle, String bcontent, String bwriter, String date) {
+    public Board(int bno, String btitle, String bcontent, String bwriter, Date date) {
         this.bno = bno;
         this.btitle = btitle;
         this.bcontent = bcontent;
