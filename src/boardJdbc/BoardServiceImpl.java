@@ -27,20 +27,26 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void create() throws SQLException, ClassNotFoundException {
-        Board board = new Board();
-        BoardDao boardDao = new BoardDao();
-        System.out.println();
-        System.out.println("[새 게시물 입력]");
-        System.out.print("제목: ");
-        board.setBtitle(sc.nextLine());
-        System.out.print("내용: ");
-        board.setBcontent(sc.nextLine());
-        System.out.print("작성자: ");
-        board.setBwriter(sc.nextLine());
-        board.setDate(getTodayDate());
-        board.setBno(count++);
-        boardList.add(board);
-        boardDao.create(board);
+        try {
+            Board board = new Board();
+            BoardDao boardDao = new BoardDao();
+            System.out.println();
+            System.out.println("[새 게시물 입력]");
+            System.out.print("제목: ");
+            board.setBtitle(sc.nextLine());
+            System.out.print("내용: ");
+            board.setBcontent(sc.nextLine());
+            System.out.print("작성자: ");
+            board.setBwriter(sc.nextLine());
+            board.setDate(getTodayDate());
+            board.setBno(count++);
+            boardList.add(board);
+            boardDao.create(board);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException c){
+            c.printStackTrace();
+        }
     }
 
     @Override
