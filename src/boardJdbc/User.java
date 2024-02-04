@@ -12,6 +12,15 @@ public class User {
     private String username;
     private String userbirth;
     private Date createdate;
+    private String userPhoneNumber;
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
 
     public int getUserno() {
         return userno;
@@ -70,6 +79,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", userbirth='" + userbirth + '\'' +
                 ", createdate=" + createdate +
+                ", userPhoneNumber='" + userPhoneNumber + '\'' +
                 '}';
     }
 }

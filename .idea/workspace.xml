@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
     <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="" />
-=======
-    <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
->>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "jinwook",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/study/java/jdbc_programming/src/myBoardPack",
+    "last_opened_file_path": "C:/Users/fabul/OneDrive/문서/GitHub/SSGBoardProject",
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",

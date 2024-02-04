@@ -30,6 +30,5 @@ bin/
 
 *.iml
 
-.idea
+*.idea
 .gitignore
-.idea/workspace.xml
