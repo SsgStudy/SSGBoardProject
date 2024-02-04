@@ -1,16 +1,23 @@
 package boardJdbc;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CancellationException;
 
 public class BoardServiceImpl implements BoardService {
 
     static Scanner sc = new Scanner(System.in);
     List<Board> boardList = new ArrayList<>();
+
     static BoardDao dao = new BoardDao();
+
+
+    int count = 1;
+
 
     public void boardTable() {
         System.out.println();
@@ -116,13 +123,46 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void delete(int bno) {
         boardList.removeIf(row -> row.getBno() == bno);
-        System.out.println("==삭제되었습니다==\n");
+
+        while (true) {
+            System.out.println("보조메뉴 : 1. Y | 2. N");
+            System.out.print("메뉴입력 : ");
+            String result = sc.nextLine().toLowerCase();
+            if (result.equals("y")) {
+                dao.delete(bno);
+                System.out.printf("%d번 게시글이 삭제되었습니다\n", bno);
+                break;
+            } else if (result.equals("n")) {
+                System.out.println("게시글 삭제를 취소했습니다.");
+                break;
+            } else {
+                System.out.println("알맞은 양식으로 다시 입력해주세요");
+            }
+        }
+
+
     }
 
     @Override
     public void clear() {
-        System.out.println("[게시물 전체 삭제");
-        boardList.clear();
+        System.out.println("[게시물 전체 삭제]");
+
+        while (true) {
+            System.out.println("보조메뉴 : 1. Y | 2. N");
+            System.out.print("메뉴입력 : ");
+            String result = sc.nextLine().toLowerCase();
+            if (result.equals("y")) {
+                dao.clear();
+                boardList.clear();
+                System.out.println("전체 게시글이 삭제되었습니다\n");
+                break;
+            } else if (result.equals("n")) {
+                System.out.println("게시글 삭제를 취소했습니다.");
+                break;
+            } else {
+                System.out.println("알맞은 양식으로 다시 입력해주세요");
+            }
+        }
     }
 
     @Override

@@ -2,6 +2,8 @@ package boardJdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.List;
 
 
 public class BoardDao {
+
 
     static Connection conn;
 
@@ -65,6 +68,7 @@ public class BoardDao {
 
     }
 
+
     public Board readOne(Integer bno) {
 
         Board board = new Board();
@@ -111,9 +115,26 @@ public class BoardDao {
         return row;
     }
 
-    public void delete(int inputBno) {
+    public void delete(int bno) {
+        String sql = "DELETE FROM boards WHERE bno=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bno);
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clear() {
+        String sql = "DELETE FROM boards";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
