@@ -25,6 +25,8 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("--".repeat(25));
         System.out.println("no \t writer \t date \t \t title");
         System.out.println("--".repeat(25));
+
+        boardList = dao.read();
         for (Board board : boardList) {
             System.out.printf("%-4s%-12s%-16s%-20s\n", board.getBno(), board.getBwriter(), board.getDate(), board.getBtitle());
         }
@@ -32,7 +34,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void create() {
+    public void create(String userId) {
         Board board = new Board();
         System.out.println();
         System.out.println("[새 게시물 입력]");
@@ -40,8 +42,7 @@ public class BoardServiceImpl implements BoardService {
         board.setBtitle(sc.nextLine());
         System.out.print("내용: ");
         board.setBcontent(sc.nextLine());
-        System.out.print("작성자: ");
-        board.setBwriter(sc.nextLine());
+        board.setBwriter(userId);
         boardList.add(board);
         dao.create(board);
     }
