@@ -94,7 +94,6 @@ public class BoardDao {
             String sql = new StringBuilder().append("SELECT * FROM boards WHERE bno=? and bwriter=?").toString();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,bno);
-            System.out.println("글쓴이 누구야 " + userid);
             pstmt.setString(2, userid);
             ResultSet rs = pstmt.executeQuery();
 
