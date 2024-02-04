@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/boardJDBC.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boardJdbc/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boardJdbc/BoardDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boardJdbc/BoardMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/boardJdbc/BoardMenu.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +39,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "project.structure.last.edited": "모듈",
     "project.structure.proportion": "0.0",
