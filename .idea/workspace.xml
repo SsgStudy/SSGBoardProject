@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boardJDBC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/boardJDBC.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardJdbc/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardJdbc/Board.java" afterDir="false" />
-    </list>
+    <list default="true" id="ae86de3b-6c25-431e-9bd7-b22609384806" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +40,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "yeobin",
+    "git-widget-placeholder": "jinwook",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/fabul/OneDrive/문서/GitHub/SSGBoardProject",
     "project.structure.last.edited": "모듈",
@@ -69,7 +65,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BoardMain" />
+        <item itemvalue="애플리케이션.BoardMain" />
       </list>
     </recent_temporary>
   </component>
