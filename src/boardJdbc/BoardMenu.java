@@ -71,13 +71,19 @@ public class BoardMenu {
         User user = new User();
         System.out.println("[회원 가입]");
         String userid;
+        int row;
+
         do {
             System.out.print("아이디를 입력하세요: ");
             userid = sc.nextLine().trim();
             if (userid.isEmpty()) {
                 System.out.println("아이디는 공백일 수 없습니다. 다시 입력해주세요.");
             }
-        } while (userid.isEmpty());
+            row = userService.existUserId(userid);
+            if (row == 1) {
+                System.out.println("이미 존재하는 아이디 입니다. 다시 입력해주세요.");
+            }
+        } while (userid.isEmpty() || row == 1);
         user.setUserid(userid);
 
         String password;
