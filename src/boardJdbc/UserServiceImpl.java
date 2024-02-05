@@ -49,20 +49,46 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
-    @Override
-    public void registerUser(User user) throws Exception {
-        String sql = "INSERT INTO users (userid, userpassword, username, userbirth, userphonenumber) VALUES (?, ?, ?, ?, ?)";
+    public int existUserId(String userid) {
+        String checkSql = "SELECT COUNT(*) FROM users WHERE userid = ?";
+
+        int state = 0;
         try {
             Connection conn = DBConnection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+            PreparedStatement pstmt = conn.prepareStatement(checkSql);
+            pstmt.setString(1, userid);
+            ResultSet rs = pstmt.executeQuery();
 
+            if (rs.next() && rs.getInt(1) > 0) {
+                state = 1;
+            }
+            pstmt.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return state;
+    }
+
+    @Override
+    public void registerUser(User user) throws Exception {
+        try {
+            Connection conn = DBConnection.getConnection();
+            String sql = "INSERT INTO users (userid, userpassword, username, userbirth, userphonenumber) VALUES (?, ?, ?, ?, ?)";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user.getUserid());
             pstmt.setString(2, user.getUserpassword());
             pstmt.setString(3, user.getUsername());
             pstmt.setString(4, user.getUserbirth());
             pstmt.setString(5, user.getUserPhoneNumber());
-            pstmt.executeUpdate();
-            System.out.println("[회원가입 성공]");
+
+            int rows = pstmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("[회원가입 성공]");
+            } else {
+                throw new Exception("회원가입 실패");
+            }
             pstmt.close();
         } catch (SQLException e) {
             throw new Exception("회원가입 실패 - ERROR : " + e.getMessage(), e);
