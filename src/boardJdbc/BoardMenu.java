@@ -3,9 +3,9 @@ package boardJdbc;
 import java.util.Scanner;
 
 public class BoardMenu {
-    Scanner sc = new Scanner(System.in);
-    static final UserServiceImpl userService = UserServiceImpl.getInstance();
+    static UserServiceImpl userService = UserServiceImpl.getInstance();
     private BoardServiceImpl boardService = new BoardServiceImpl();
+    Scanner sc = new Scanner(System.in);
 
     public void runProgram() throws Exception {
         startMenu();
