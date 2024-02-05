@@ -6,10 +6,8 @@ import java.util.Scanner;
 
 public class BoardServiceImpl implements BoardService {
     static Scanner sc = new Scanner(System.in);
-    List<Board> boardList = new ArrayList<>();
-    static BoardDao dao = new BoardDao();
-
-    static final UserServiceImpl userService = UserServiceImpl.getInstance();
+    private BoardDao dao = new BoardDao();
+    private static UserServiceImpl userService = UserServiceImpl.getInstance();
 
     public void boardTable() {
         System.out.println();
@@ -18,7 +16,7 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("no \t writer \t date \t \t title");
         System.out.println("--".repeat(25));
 
-        boardList = dao.read();
+        List<Board> boardList = dao.read();
         for (Board board : boardList) {
             System.out.printf("%-4s%-12s%-16s%-20s\n", board.getBno(), board.getBwriter(), board.getDate(), board.getBtitle());
         }
@@ -28,6 +26,8 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void create(String userId) {
         Board board = new Board();
+        List<Board> boardList = new ArrayList<>();
+
         System.out.println();
         System.out.println("[새 게시물 입력]");
         System.out.print("제목: ");
@@ -41,13 +41,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void read() {
-        boardList = dao.read();
-
         System.out.println();
         System.out.println("[게시물 읽기]");
         boardTable();
         System.out.printf("bno: ");
         String bno = sc.nextLine().trim();
+
         if (bno.isEmpty()) {
             System.out.println("잘못된 입력 입니다.");
             return;
@@ -77,6 +76,7 @@ public class BoardServiceImpl implements BoardService {
         System.out.println("보조 메뉴 : 1.Update | 2.Delete | 3. List");
         System.out.print("메뉴 선택 : ");
         String cmd = sc.nextLine();
+
         switch (cmd) {
             case "1" -> update(bno, board);
             case "2" -> delete(bno);
@@ -131,9 +131,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void delete(int bno) {
-
-        boardList.removeIf(row -> row.getBno() == bno);
-
         if (dao.checkUserBoard(bno, userService.getUserid()) == 0) {
             System.out.println("본인의 게시글만 삭제할 수 있습니다.");
             return;
@@ -141,7 +138,7 @@ public class BoardServiceImpl implements BoardService {
 
         while (true) {
             System.out.println("보조메뉴 : 1. Y | 2. N");
-            System.out.print("메뉴입력 : ");
+            System.out.print("메뉴 입력 : ");
             String result = sc.nextLine();
             if (result.equals("1")) {
                 dao.delete(bno);
@@ -151,7 +148,7 @@ public class BoardServiceImpl implements BoardService {
                 System.out.println("게시글 삭제를 취소했습니다.");
                 break;
             } else {
-                System.out.println("알맞은 양식으로 다시 입력해주세요");
+                System.out.println("알맞은 양식으로 다시 입력해주세요.");
             }
         }
     }
@@ -166,10 +163,9 @@ public class BoardServiceImpl implements BoardService {
             String result = sc.nextLine();
             if (result.equals("1")) {
                 dao.clear();
-                boardList.clear();
                 System.out.println("전체 게시글이 삭제되었습니다\n");
                 break;
-            } else if (result.equals("n")) {
+            } else if (result.equals("2")) {
                 System.out.println("게시글 삭제를 취소했습니다.");
                 break;
             } else {
@@ -180,6 +176,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void exit() {
+        dao.exit();
         System.out.println("**프로그램 종료**");
         System.exit(0);
     }

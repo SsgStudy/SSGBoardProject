@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
             }
             pstmt.close();
         } catch (SQLException | ClassNotFoundException e) {
-            throw new Exception("회원조회 실패 - ERROR : " + e.getMessage(), e);
+            throw new Exception("회원조회 실패 : " + e.getMessage(), e);
         }
         return user;
     }
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService{
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
-            throw new Exception("유저 삭제 실패 - ERROR : " + e.getMessage(), e);
+            throw new Exception("유저 삭제 실패 : " + e.getMessage(), e);
         }
     }
 
@@ -121,17 +121,15 @@ public class UserServiceImpl implements UserService{
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                state = 1; // 로그인 성공
+                state = 1;
                 userid = id;
             }
-
             pstmt.close();
 
         } catch (SQLException | ClassNotFoundException s) {
             s.printStackTrace();
-            state = -1; // 로그인 처리 중 예외 발생
+            state = -1;
         }
         return state;
     }
-
 }

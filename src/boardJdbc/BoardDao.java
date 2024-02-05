@@ -52,7 +52,6 @@ public class BoardDao {
                 board.setDate(rs.getDate("bdate"));
                 boards.add(board);
             }
-
             rs.close();
             pstmt.close();
 
@@ -80,7 +79,8 @@ public class BoardDao {
             } else {
                 return null;
             }
-        }catch(SQLException s){
+
+        } catch(SQLException s){
             s.printStackTrace();
         }
 
@@ -150,6 +150,14 @@ public class BoardDao {
             pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void exit() {
+        try {
+            DBConnection.close();
+        } catch (SQLException s) {
+            s.printStackTrace();
         }
     }
 }
